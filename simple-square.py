@@ -5,6 +5,7 @@ from utils import map0, earthquake0, tornado0, tornado1
 import time
 import threading
 import random
+import numpy as np
 
 class TurnState():
     e = threading.Event()
@@ -14,8 +15,10 @@ class TurnState():
 class Colors():
     black = (0, 0, 0)
     white = (255, 255, 255)
-    green = (23, 173, 63)
-    blue = (0, 128, 201)
+    green = (51, 204, 51)
+    darkGreen = (51, 153, 51)
+    blue = (51, 153, 255)
+    darkBlue = (0, 51, 204)
     orange = (201, 121, 0)
     grey = (156, 156, 156)
 
@@ -65,7 +68,7 @@ class SimpleSquare(SampleBase):
                     offset_canvas = earthquake(self, offset_canvas, defineRotation())
                 elif naturalDisaster == "tornado":
                     offset_canvas = tornado(self, offset_canvas, defineRotation())
-
+            
             #reset thread per reimpostare il turno
             TurnState.e.clear()
             roundCount += 1
@@ -78,17 +81,24 @@ def createMap0(self, offset_canvas):
     r, g, b = Colors.blue
     #left river
     for x, y in map0.leftRiver:
-        offset_canvas.SetPixel(x, y, r, g, b)
+        offset_canvas.SetPixel(x*2, y*2, r, g, b)
+        offset_canvas.SetPixel((x*2)+1, (y*2), r, g, b)
+        offset_canvas.SetPixel((x*2), (y*2)+1, r, g, b)
+        offset_canvas.SetPixel((x*2)+1, (y*2)+1, r, g, b)
 
     #right river
     for x, y in map0.rightRiver:
-        offset_canvas.SetPixel(x, y, r, g, b)
+        offset_canvas.SetPixel(x*2, y*2, r, g, b)
+        offset_canvas.SetPixel((x*2)+1, (y*2), r, g, b)
+        offset_canvas.SetPixel((x*2), (y*2)+1, r, g, b)
+        offset_canvas.SetPixel((x*2)+1, (y*2)+1, r, g, b)
     
     offset_canvas = self.matrix.SwapOnVSync(offset_canvas)
     return(offset_canvas)
 
 def disasterProbability(prob):
-    return random.binomialvariate(n=1, p = prob)
+    #return random.binomialvariate(n=1, p = prob)
+    return np.random.binomial(n=1, p = prob)
 
 def defineRotation():
     return random.choices(["up", "right", "down", "left"])[0]
