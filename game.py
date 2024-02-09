@@ -2,13 +2,13 @@ from samplebase import SampleBase
 from pynput import mouse
 from utils import map0, earthquake0, tornado0, tornado1
 import time
+"""
 import threading
-
 class TurnState():
     e = threading.Event()
     run = True
     lastDisaster = None
-
+"""
 class Colors():
     black = (0, 0, 0)
     white = (255, 255, 255)
@@ -28,9 +28,9 @@ class Game(SampleBase):
         offset_canvas = self.matrix.CreateFrameCanvas()
         offset_canvas = createMap0(self, offset_canvas)
 
-        while TurnState.run:
+        while True:
             #inizio turno, aspetta per 600 secondi e poi esegue il codice di fine turno
-            TurnState.e.wait(timeout=600)
+            time.wait(timeout=600)
             
             
 def createMap0(self, offset_canvas):
@@ -67,7 +67,7 @@ def createMap0(self, offset_canvas):
     offset_canvas = self.matrix.SwapOnVSync(offset_canvas)
     return(offset_canvas)
 
-
+"""
 def on_mouse_click(mouse_position_x, mouse_position_y, button, is_pressed):
     if button == mouse.Button.right and is_pressed:
         #TurnState.e.set()
@@ -77,10 +77,10 @@ def on_mouse_click(mouse_position_x, mouse_position_y, button, is_pressed):
         TurnState.e.set()
 
 mouse_listener = mouse.Listener(on_click=on_mouse_click)
-
+"""
 # Main function
 if __name__ == "__main__":
-    mouse_listener.start()
+    #mouse_listener.start()
     game = Game()
     if (not game.process()):
         game.print_help()
