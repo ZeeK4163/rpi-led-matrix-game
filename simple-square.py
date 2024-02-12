@@ -64,15 +64,10 @@ class SimpleSquare(SampleBase):
                 
                 if naturalDisaster == "flood":
                     offset_canvas = flood(self, offset_canvas)
-                    print("flood")
                 elif naturalDisaster == "earthquake":
                     offset_canvas = earthquake(self, offset_canvas, defineRotation())
                 elif naturalDisaster == "tornado":
                     offset_canvas = tornado(self, offset_canvas, defineRotation())
-
-            time.sleep(2)
-            offset_canvas.Clear()
-            offset_canvas = createMap0(self, offset_canvas)
 
             #reset thread per reimpostare il turno
             TurnState.e.clear()
@@ -132,6 +127,10 @@ def flood(self, offset_canvas):
             offset_canvas.SetPixel(x+1, y, r, g, b) #left
         
     offset_canvas = self.matrix.SwapOnVSync(offset_canvas)
+
+    time.sleep(2)
+    offset_canvas.Clear()
+    offset_canvas = createMap0(self, offset_canvas)
     return(offset_canvas)
 
 #create a tornado with given coords
@@ -159,6 +158,10 @@ def tornado(self, offset_canvas, rotation):
     for x, y in rotatedCoords:
         offset_canvas.SetPixel(x, y, r, g, b)
     offset_canvas = self.matrix.SwapOnVSync(offset_canvas)
+
+    time.sleep(2)
+    offset_canvas.Clear()
+    offset_canvas = createMap0(self, offset_canvas)
     return(offset_canvas)
 
 def earthquake(self, offset_canvas, rotation):
@@ -239,6 +242,9 @@ def earthquake(self, offset_canvas, rotation):
             offset_canvas.SetPixel(x, y, r, g, b)
         offset_canvas = self.matrix.SwapOnVSync(offset_canvas)
 
+    time.sleep(2)
+    offset_canvas.Clear()
+    offset_canvas = createMap0(self, offset_canvas)
     return(offset_canvas)
 
 def on_mouse_click(mouse_position_x, mouse_position_y, button, is_pressed):
