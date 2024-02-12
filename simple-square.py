@@ -38,12 +38,12 @@ class SimpleSquare(SampleBase):
             TurnState.e.wait(timeout=600)
 
             #flash white means new turn started
-            r, g, b = Colors.white
-            offset_canvas.Fill(r, g, b)
-            offset_canvas = self.matrix.SwapOnVSync(offset_canvas)
-            time.sleep(0.1)
+            #r, g, b = Colors.white
+            #offset_canvas.Fill(r, g, b)
+            #offset_canvas = self.matrix.SwapOnVSync(offset_canvas)
+            #time.sleep(0.1)
 
-            offset_canvas = createMap0(self, offset_canvas)
+            #offset_canvas = createMap0(self, offset_canvas)
             
             if roundCount == 0:             #probability of a disaster in round 0
                 disaster = disasterProbability(0.1) 
@@ -64,11 +64,16 @@ class SimpleSquare(SampleBase):
                 
                 if naturalDisaster == "flood":
                     offset_canvas = flood(self, offset_canvas)
+                    print("flood")
                 elif naturalDisaster == "earthquake":
                     offset_canvas = earthquake(self, offset_canvas, defineRotation())
                 elif naturalDisaster == "tornado":
                     offset_canvas = tornado(self, offset_canvas, defineRotation())
-            
+
+            time.sleep(2)
+            offset_canvas.Clear()
+            offset_canvas = createMap0(self, offset_canvas)
+
             #reset thread per reimpostare il turno
             TurnState.e.clear()
             roundCount += 1
