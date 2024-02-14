@@ -6,8 +6,8 @@ import time
 import threading
 import random
 import numpy as np
-
 import threading
+
 class TurnState():
     e = threading.Event()
     run = True
@@ -45,7 +45,7 @@ class Game(SampleBase):
 
         roundCount = 0
         while TurnState.run:
-            print("inizio turno")
+            print("turno ", roundCount)
             #inizio turno, aspetta per 600 secondi e poi esegue il codice di fine turno
             TurnState.e.wait(timeout=600)
 
@@ -90,24 +90,25 @@ class Game(SampleBase):
                             r, g, b = eqCrds[row][col]
                             offScreenCanvas.SetPixel(row, col, r, g, b)
                     self.matrix.SwapOnVSync(offScreenCanvas)
-                    for row in range(len(eaLeftCrds)):
-                        for col in range(len(eaLeftCrds[row])):
-                            r, g, b = eaLeftCrds[row][col]
-                            offScreenCanvas.SetPixel(row, col, r, g, b)
-                    time.sleep(0.3)
-                    self.matrix.SwapOnVSync(offScreenCanvas)
-                    for row in range(len(eaUpCrds)):
-                        for col in range(len(eaUpCrds[row])):
-                            r, g, b = eaUpCrds[row][col]
-                            offScreenCanvas.SetPixel(row, col, r, g, b)
-                    time.sleep(0.3)
-                    self.matrix.SwapOnVSync(offScreenCanvas)
-                    for row in range(len(eaRightCrds)):
-                        for col in range(len(eaRightCrds[row])):
-                            r, g, b = eaRightCrds[row][col]
-                            offScreenCanvas.SetPixel(row, col, r, g, b)
-                    time.sleep(0.3)
-                    self.matrix.SwapOnVSync(offScreenCanvas)
+                    for _ in range(3):
+                        for row in range(len(eaLeftCrds)):
+                            for col in range(len(eaLeftCrds[row])):
+                                r, g, b = eaLeftCrds[row][col]
+                                offScreenCanvas.SetPixel(row, col, r, g, b)
+                        time.sleep(0.3)
+                        self.matrix.SwapOnVSync(offScreenCanvas)
+                        for row in range(len(eaUpCrds)):
+                            for col in range(len(eaUpCrds[row])):
+                                r, g, b = eaUpCrds[row][col]
+                                offScreenCanvas.SetPixel(row, col, r, g, b)
+                        time.sleep(0.3)
+                        self.matrix.SwapOnVSync(offScreenCanvas)
+                        for row in range(len(eaRightCrds)):
+                            for col in range(len(eaRightCrds[row])):
+                                r, g, b = eaRightCrds[row][col]
+                                offScreenCanvas.SetPixel(row, col, r, g, b)
+                        time.sleep(0.3)
+                        self.matrix.SwapOnVSync(offScreenCanvas)
                     for row in range(len(eqCrds)):
                         for col in range(len(eqCrds[row])):
                             r, g, b = eqCrds[row][col]
