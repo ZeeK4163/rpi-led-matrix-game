@@ -41,7 +41,13 @@ class Game(SampleBase):
                 defaultMapScreenCanvas.SetPixel(row, col, r, g, b)
         self.matrix.SwapOnVSync(defaultMapScreenCanvas)
         
-        blankCanvas.Fill = (0, 0, 0)
+        for x in range(32):
+            for y in range(32):
+                blankCanvas.SetPixel(x, y, 0, 0, 0)
+
+        for x in range(32):
+            for y in range(32):
+                whiteCanvas.SetPixel(x, y, 255, 255, 255)
 
         roundCount = 0
         while TurnState.run:
@@ -49,7 +55,7 @@ class Game(SampleBase):
             #inizio turno, aspetta per 600 secondi e poi esegue il codice di fine turno
             TurnState.e.wait(timeout=600)
 
-            self.matrix.SwapOnVSync(blankCanvas)
+            self.matrix.SwapOnVSync(whiteCanvas)
             time.sleep(0.3)
 
             if roundCount == 0:             #probability of a disaster in round 0
